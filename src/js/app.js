@@ -1,31 +1,6 @@
 $(() => {
   console.log('JS Loaded');
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '109379239669378',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v2.8'
-    });
-    FB.AppEvents.logPageView();
-  };
-
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-  // Only run categories logic on relevent pages
-  if ($('input[name="categories"]') > 0) var tags = new TIB(document.querySelector('input[name="categories"]'));
-
   // Home Page - Typing animation
   const TxtRotate = function(el, toRotate, period) {
     this.toRotate = toRotate;
@@ -85,13 +60,18 @@ $(() => {
   };
 
   // Image preview function
-  $('#image').on('change', handleFileSelect, false);
+  document.getElementById('image').addEventListener('change', handleFileSelect, false);
+
+  // Only run categories logic on relevent pages
+  const tags = new TIB(document.querySelector('input[name="categories"]'));
 
 });
 
 function handleFileSelect(evt) {
   const files = evt.target.files;
+  const listContainer = document.getElementById('list');
   console.log('I made it!');
+  listContainer.innerHTML = '';
   // Loop through the FileList and render image files as thumbnails.
   for (let i = 0, f; f = files[i]; i++) {
 
@@ -115,7 +95,7 @@ function handleFileSelect(evt) {
           '"/>'
         ].join('');
 
-        document.getElementById('list').insertBefore(span, null);
+        listContainer.insertBefore(span, null);
       };
     })(f);
 

@@ -1,3 +1,4 @@
+
 const github = {
   loginUrl: 'https://github.com/login/oauth/authorize',
   accessTokenUrl: 'https://github.com/login/oauth/access_token',
@@ -10,14 +11,7 @@ const github = {
   }
 };
 
-
-const facebook = {
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://localhost:3000/auth/facebook/callback'
-};
-
-
+console.log(github);
 
 module.exports = {
   github

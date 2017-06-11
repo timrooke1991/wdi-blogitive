@@ -8,9 +8,8 @@ const flash = require('express-flash');
 const routes = require('./config/routes');
 const customResponses = require('./lib/customResponses');
 const authentication = require('./lib/authentication');
-const errorHandler = require('./lib/errorHandler');
+// const errorHandler = require('./lib/errorHandler');
 const { secret, port, dbURI } = require('./config/environment');
-
 const app = express();
 
 mongoose.Promise = require('bluebird');

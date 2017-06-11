@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const time_ago_in_words = require('time_ago_in_words');
 
 function indexPost(req, res, next) {
 
@@ -36,7 +37,7 @@ function showPost(req, res, next) {
     .exec()
     .then((post) => {
       if(!post) return res.notFound();
-      return res.render('posts/show', { post });
+      return res.render('posts/show', { post, time_ago_in_words });
     })
     .catch(next);
 }

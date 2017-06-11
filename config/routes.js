@@ -9,6 +9,9 @@ const oauth = require('../controllers/oauth');
 
 router.get('/', (req, res) => res.render('statics/index'));
 
+router.route('/oauth/github')
+  .get(oauth.github);
+
 router.route('/posts')
   .get(postsController.index)
   .post(secureRoute, upload.single('image'), postsController.create);
@@ -43,8 +46,7 @@ router.route('/users/:id')
 router.route('/users/:id/edit')
   .get(secureRoute, registrationsController.edit);
 
-router.route('/oauth/github')
-  .get(oauth.github);
+
 
 router.route('/login')
   .get(sessionsController.new)
