@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WDI Project 1</title>
+    <% include ./partials/_stylesheets.ejs %>
+    <% include ./partials/_scripts.ejs %>
+  </head>
+  <body>
+    <main>
+
+      <header>
+        <% include ./partials/_navbar.ejs %>
+      </header>
+
+      <% for(const type in messages) { %>
+      <div class="<%= type %>">
+        <h5><%= messages[type] %></h5>
+      </div>
+      <% } %>
+
+      <%- body %>
+    </main>
+  </body>
+</html>

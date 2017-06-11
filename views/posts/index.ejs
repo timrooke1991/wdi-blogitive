@@ -1,0 +1,16 @@
+<div class="column">
+  <h1 class="">Posts Index</h1>
+  <div class="columns">
+    <% posts.forEach((post) => { %>
+      <div class="is-one-half column">
+        <div class="">
+          <a href="/posts/<%= post.id %>"><%= post.title %></a>
+          <img class="image is-2by1" src="<%= post.imageSRC %>" alt="<%= post.caption %>">
+          <p><%= post.caption %></p>
+          <a href="/posts/<%= post.id %>">Show</a>
+          <a href="users/<%= post.createdBy.id %>"><p>Created by: <%= post.createdBy.username %></p></a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="column is-8 is-offset-2">
+  <h1 class="">Edit Post</h1>
+  <form method="POST" action="/posts/<%= post.id %>">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="field">
+      <label class="label" for="title">Title</label>
+      <p class="control">
+        <input class="input blog-post-input" type="text" name="title" id="title" value="<%= post.title %>">
+      </p>
+    </div>
+    <div class="field">
+      <label class="label" for="tagline">Tagline</label>
+      <p class="control">
+        <input class="input blog-post-input" type="text" name="tagline" id="tagline" value="<%= post.tagline %>">
+      </p>
+    </div>
+    <div class="field">
+      <label class="label" for="categories">Categories</label>
+      <p class="control">
+        <input class="input blog-post-input" type="text" name="categories" id="categories" value="<%= post.categories %>">
+      </p>
+    </div>
+
+    <div class="field">
+      <label class="label blog-post-input" for="body">Blog Content</label>
+      <p class="control">
+        <textarea class="textarea blog-post-input" name="body" id="body"><%= post.body %></textarea>
+      </p>
+    </div>
+    <button class="button">Update</button>
+  </form>
+  <hr/>
+</div>
