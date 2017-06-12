@@ -1,8 +1,8 @@
-<div class="column">
+<div class="column is-8 is-offset-2">
   <h1 class="">Posts Index</h1>
   <div class="columns">
     <% posts.forEach((post) => { %>
-      <div class="is-one-half column">
+      <div class="column">
         <div class="">
           <a href="/posts/<%= post.id %>"><%= post.title %></a>
           <img class="image is-2by1" src="<%= post.imageSRC %>" alt="<%= post.caption %>">

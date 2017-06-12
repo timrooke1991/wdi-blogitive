@@ -65,6 +65,12 @@ $(() => {
   // Only run categories logic on relevent pages
   const tags = new TIB(document.querySelector('input[name="categories"]'));
 
+  // Replaces line breaks with <br> to preserve blog formatting
+  // $('#submit-post').on('click', () => {
+  //   console.log('replace has run!');
+  //   $('#body').html().replace(/\r?\n/g, '<br />');
+  // });
+
 });
 
 function handleFileSelect(evt) {

@@ -1,12 +1,29 @@
 <div class="column">
-  <h1 class="">Show Post</h1>
   <div class="column is-6 is-offset-3">
     <div class="column">
       <div class="">
+        <h3 class="blog-title"><%= post.title %></h3>
         <img src="<%= post.imageSRC %>" alt="<%= post.caption %>">
-        <p><em><%= post.caption %></em></p>
+        <p><em><%= post.tagline %></em></p>
         <div class="block">
-          <p>Created by: <%= post.createdBy.username %> </p>
+
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src="<%= post.createdBy.imageSRC %>" alt="Image">
+            </figure>
+
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong><a href="/users/<%= post.createdBy.id %>"><p>Created by: <%= post.createdBy.username %> </p></a></strong><small>
+                    <em class=""><%= time_ago_in_words(post.createdAt) %></em></small>
+                    <h1>Sentiment: <%= post.sentiment %></h1>
+                  <br>
+
+                </p>
+              </div>
+            </div>
+          </div>
           <div class="button-bar">
           <% if(locals.isAuthenticated && post.belongsTo(user)) { %>
               <a class="button is-primary" href="/posts/<%= post.id %>/edit">Edit</a>
@@ -17,26 +34,11 @@
             </div>
           <% } %>
       </div>
+      <article class="blog-content">
+        <%= post.body %>
+      </article>
       </div>
     </div>
-
-    <% if(locals.isAuthenticated) { %>
-      <section class="column column-layout">
-          <form class=""  method="POST" action="/posts/<%= post.id %>/comments">
-            <div class="">
-                <div class="">
-                  <div class="field">
-                    <label class="label" for="content">Comment</label>
-                    <p class="control">
-                      <textarea class="textarea" name="content" id="content" placeholder="Textarea"></textarea>
-                    </p>
-                  </div>
-                  <button class="button is-success">Post</button>
-                </div>
-            </div>
-          </form>
-      </section>
-    <% } %>
 
     <section class="column">
        <h4>Comments</h4>
@@ -52,7 +54,7 @@
              <div class="media-content">
                <div class="content">
                  <p>
-                   <strong><a href="/profile"><%= comment.createdBy.username %></a></strong><small>
+                   <strong><a href="/users/<%= comment.createdBy.id %>"><%= comment.createdBy.username %></a></strong><small>
                      <em class=""><%= time_ago_in_words(comment.createdAt) %></em></small>
                    <br>
                    <%= comment.content %>
@@ -83,5 +85,22 @@
        <% }) %>
      </section>
 
+     <% if(locals.isAuthenticated) { %>
+       <section class="column column-layout">
+           <form class=""  method="POST" action="/posts/<%= post.id %>/comments">
+             <div class="">
+                 <div class="">
+                   <div class="field">
+                     <label class="label" for="content">Comment</label>
+                     <p class="control">
+                       <textarea class="textarea" name="content" id="content" placeholder="Textarea"></textarea>
+                     </p>
+                   </div>
+                   <button class="button is-success">Post</button>
+                 </div>
+             </div>
+           </form>
+       </section>
+     <% } %>
   </div>
 </div>

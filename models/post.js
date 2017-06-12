@@ -20,8 +20,10 @@ const postSchema = new mongoose.Schema({
   tagline: { type: String },
   image: { type: String, required: true },
   body: { type: String, required: true },
+  sentiment: { type: Number },
   categories: { type: String },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  createdAt: {type: Date, default: Date.now},
   comments: [ commentSchema ]
 });
 

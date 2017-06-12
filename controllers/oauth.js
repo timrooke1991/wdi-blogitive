@@ -3,7 +3,7 @@ const oauth = require('../config/oauth');
 const User = require('../models/user');
 
 function github(req, res, next) {
-  console.log('query', req.query);
+  console.log(oauth.github.accessTokenUrl);
   return rp({
     method: 'POST',
     url: oauth.github.accessTokenUrl,

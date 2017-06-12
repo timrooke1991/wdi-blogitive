@@ -47,6 +47,7 @@
     "passport-local": "^1.0.0",
     "request-promise": "^4.2.1",
     "time_ago_in_words": "^1.2.1",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "watson-developer-cloud": "^2.32.1"
   }
 }

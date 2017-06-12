@@ -13,11 +13,10 @@ function sessionsCreate(req, res, next) {
         req.flash('danger', 'Unknown email/password combination');
         return res.redirect('/login');
       }
-
+      req.user = user;
       req.session.userId = user.id;
       req.session.isAuthenticated = true;
 
-      req.user = user;
       console.log(req.user);
       req.flash('success', `Welcome back, ${user.username}!`);
       res.redirect('/posts');
