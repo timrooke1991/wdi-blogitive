@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Post = require('../models/post');
 
 function newRoute(req, res) {
   return res.render('registrations/new');
@@ -11,13 +12,15 @@ function createRoute(req, res, next) {
     .create(req.body)
     .then(() => res.redirect('/login'))
     .catch((err) => {
-      // if(err.name === 'ValidationError') return res.badRequest('/register', err.toString());
       next(err);
     });
 }
 
 function showRoute(req, res) {
-  return res.render('registrations/show');
+  Post
+    .find({ createdBy: req.user.id })
+    .exec()
+    .then((posts) => res.render('registrations/show', { posts }));
 }
 
 function editRoute(req, res) {

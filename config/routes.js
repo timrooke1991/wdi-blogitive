@@ -2,14 +2,11 @@ const router = require('express').Router();
 const postsController = require('../controllers/posts');
 const sessionsController = require('../controllers/sessions');
 const registrationsController = require('../controllers/registrations');
-// const watson = require('../controllers/watson');
 const secureRoute = require('../lib/secureRoute');
 const upload = require('../lib/upload');
 const oauth = require('../controllers/oauth');
 
 router.get('/', (req, res) => res.render('statics/index'));
-
-// router.post('/watson')
 
 router.route('/oauth/github')
   .get(oauth.github);

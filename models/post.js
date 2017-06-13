@@ -5,7 +5,9 @@ const s3 = require('../lib/s3');
 const commentSchema = new mongoose.Schema({
   content: { type: String, required: true },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
-  createdAt: {type: Date, default: Date.now}
+  createdAt: {type: Date, default: Date.now},
+  sentiment: { type: Number },
+  entities: []
 }, {
   timestamps: true
 });

@@ -3,9 +3,11 @@ const time_ago_in_words = require('time_ago_in_words');
 const nlu = require('../config/watson.js');
 
 function indexPost(req, res, next) {
+  const regex = new RegExp(req.query.q, 'i');
+  const query = { categories: regex };
 
   Post
-    .find()
+    .find(query)
     .populate('createdBy')
     .exec()
     .then((posts) => res.render('posts/index', { posts }))
@@ -19,14 +21,8 @@ function newPost(req, res) {
 
 function createPost(req, res, next) {
 
-  console.log(req.body);
-
   req.body.createdBy = req.user;
   if(req.file) req.body.image = req.file.key;
-
-  // Test to see check the req.body.sentiment syntax is correct.
-  // This sets the value to 0.98, which can be accessed in the view
-  // req.body.sentiment = 0.98;
 
   // Passing in the body of the form to be analysed by IBM Watson
   const parameters = {
@@ -59,12 +55,8 @@ function createPost(req, res, next) {
       console.log('error:', err);
     } else {
 
-      // Logs 0.5467364 in the console - the value I am wanting
-      // console.log(response.sentiment.document.score);
-      // req.body.sentiment does not get set to a new value
       req.body.sentiment = response.sentiment.document.score;
-      // Logs 0.5467364 in the console - as though req.body.sentiment has been updated
-      // console.log(req.body.sentiment);
+
       response.categories.forEach((category) => {
         const convertToStringList = category.label.split('/').join(',');
         console.log(convertToStringList);
@@ -76,28 +68,21 @@ function createPost(req, res, next) {
       });
 
       req.body.categories = dedupedStr;
-
       req.body.entities = response.entities;
       req.body.concepts = response.concepts;
     }
 
-    // setTimeout(function() {
-    console.log(req.body);
     Post
     .create(req.body)
     .then((post) => {
-      // Logs 0.98 in the console - the original value. Without initially setting this to 0.98, it returns undefined
       res.redirect(`/posts/${post.id}`);
     })
     .catch((err) => {
       if(err.name === 'ValidationError') return res.badRequest(`/posts`, err.toString());
       next(err);
     });
-    // }, 10000);
+    // End of IBM Analysis
   });
-
-
-
 }
 
 function showPost(req, res, next) {
@@ -160,18 +145,43 @@ function createCommentRoute(req, res, next) {
 
   req.body.createdBy = req.user;
 
-  Post
-    .findById(req.params.id)
-    .exec()
-    .then((post) => {
-      if(!post) return res.notFound();
+  const parameters = {
+    'text': req.body.content,
+    'features': {
+      'sentiment': {},
+      'emotion': {},
+      'entities': {
+        'emotion': true,
+        'sentiment': true,
+        'limit': 3
+      }
+    }
+  };
 
-      post.comments.push(req.body); // create an embedded record
-      return post.save();
-    })
-    .then((post) => res.redirect(`/posts/${post.id}`))
-    .catch(next);
+  // IBM Watson Function
+  nlu.analyze(parameters, function (err, response) {
+    if (err) {
+      console.log('error:', err);
+    } else {
+
+      req.body.sentiment = response.sentiment.document.score;
+      req.body.entities = response.entities;
+
+      Post
+      .findById(req.params.id)
+      .exec()
+      .then((post) => {
+        if(!post) return res.notFound();
+
+        post.comments.push(req.body); // create an embedded record
+        return post.save();
+      })
+      .then((post) => res.redirect(`/posts/${post.id}`))
+      .catch(next);
+    }
+  });
 }
+
 
 function deleteCommentRoute(req, res, next) {
   Post

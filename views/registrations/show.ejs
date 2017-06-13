@@ -1,6 +1,27 @@
 <div>
   <h1><%= user.username %></h1>
+  <canvas id="myChart" width="400" height="400" data-value="<%= posts.map(function(val) { return val.sentiment; }); %>" data-labels="<%= posts.map(function(date) { return date.createdAt; }); %>"></canvas>
   <img class="image is-128x128 rounded" src="<%= user.imageSRC %>" alt="<%= user.username %>">
+  <h1>Average Sentiment <%= ((posts.reduce(function(acc, val) { return acc + val.sentiment; }, 0) / posts.length) * 100).toFixed(0); %>%</h1>
+
+  <h2><% posts.forEach((post) => { %>
+    <p><%= post.title %></p>
+    <p><%= post.sentiment %></p>
+    <h1>Entities: <% post.entities.forEach((entity) => { %>
+      <% if(entity.sentiment.score > 0) { %>
+        <span class="tag is-medium" style="background-color: rgba(0,255,0, <%= Math.abs(entity.sentiment.score) %>);">
+          <span class="score"  style="color: black"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+          <%= entity.text %>
+        </span>
+      <% } else { %>
+        <span class="tag is-medium" style="background-color: rgba(255,0,0, <%= Math.abs(entity.sentiment.score) %>);">
+          <span class="score"  style="color: white"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+          <%= entity.text %>
+        </span>
+      <% } %>
+    <% }) %></h1>
+
+  <% }) %></h2>
 
   <a class="button is-primary" href="/users/<%= user.id %>/edit">Edit profile</a>
 

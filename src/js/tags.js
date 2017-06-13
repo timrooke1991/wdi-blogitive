@@ -56,7 +56,7 @@
     hash = Date.now(),
     placeholder = target.placeholder || "",
     config = {
-      join: ', ',
+      join: ',',
       max: 9999,
       escape: [',', '\n'],
       alert: true,
