@@ -8,6 +8,9 @@ const oauth = require('../controllers/oauth');
 
 router.get('/', (req, res) => res.render('statics/index'));
 
+router.route('/oauth/instagram')
+  .get(oauth.instagram);
+
 router.route('/oauth/github')
   .get(oauth.github);
 

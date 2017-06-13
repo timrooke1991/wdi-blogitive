@@ -4,7 +4,7 @@ const nlu = require('../config/watson.js');
 
 function indexPost(req, res, next) {
   const regex = new RegExp(req.query.q, 'i');
-  const query = { categories: regex };
+  const query  = { $or: [{ categories: regex }, { title: regex }] };
 
   Post
     .find(query)
