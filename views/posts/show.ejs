@@ -19,6 +19,20 @@
                     <em class=""><%= time_ago_in_words(post.createdAt) %></em></small>
                     <h1>Sentiment: <%= post.sentiment %></h1>
                   <br>
+                  <h1>Categories: <% post.categories.split(',').forEach((category) => { %>
+                    <span class="tag is-medium is-sucess"><%= category %></span>
+                  <% }) %></h1>
+                  <h1>Entities: <% post.entities.forEach((entity) => { %>
+                    <% if(entity.sentiment.score > 0) { %>
+                      <span class="tag is-medium" style="background-color: rgba(0,255,0, <%= Math.abs(entity.sentiment.score) %>);"><%= entity.text %></span>
+                    <% } else { %>
+                      <span class="tag is-medium" style="background-color: rgba(255,0,0, <%= Math.abs(entity.sentiment.score) %>);"><%= entity.text %></span>
+                    <% } %>
+                  <% }) %></h1>
+
+                  <h1>Concepts:  <% post.concepts.forEach((concept) => { %>
+                    <a href="<%= concept.dbpedia_resource %>" class="tag is-medium" target="_blank"><%= concept.text %></a>
+                  <% }) %>
 
                 </p>
               </div>

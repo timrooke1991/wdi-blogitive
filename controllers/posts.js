@@ -26,7 +26,7 @@ function createPost(req, res, next) {
 
   // Test to see check the req.body.sentiment syntax is correct.
   // This sets the value to 0.98, which can be accessed in the view
-  req.body.sentiment = 0.98;
+  // req.body.sentiment = 0.98;
 
   // Passing in the body of the form to be analysed by IBM Watson
   const parameters = {
@@ -44,40 +44,60 @@ function createPost(req, res, next) {
         'emotion': true,
         'sentiment': true,
         'limit': 5
+      },
+      'concepts': {
+        'emotion': true,
+        'sentiment': true,
+        'limit': 5
       }
     }
   };
 
-
+  // IBM Watson Function
   nlu.analyze(parameters, function (err, response) {
     if (err) {
       console.log('error:', err);
     } else {
 
       // Logs 0.5467364 in the console - the value I am wanting
-      console.log(response.sentiment.document.score);
+      // console.log(response.sentiment.document.score);
       // req.body.sentiment does not get set to a new value
       req.body.sentiment = response.sentiment.document.score;
       // Logs 0.5467364 in the console - as though req.body.sentiment has been updated
-      console.log(req.body.sentiment);
+      // console.log(req.body.sentiment);
+      response.categories.forEach((category) => {
+        const convertToStringList = category.label.split('/').join(',');
+        console.log(convertToStringList);
+        req.body.categories += convertToStringList;
+      });
+
+      const dedupedStr = req.body.categories.split(',').filter(function(item, pos,self) {
+        return self.indexOf(item) === pos;
+      });
+
+      req.body.categories = dedupedStr;
+
+      req.body.entities = response.entities;
+      req.body.concepts = response.concepts;
     }
-  });
 
-
-  setTimeout(function() {
+    // setTimeout(function() {
     console.log(req.body);
     Post
     .create(req.body)
-    .then(() => {
+    .then((post) => {
       // Logs 0.98 in the console - the original value. Without initially setting this to 0.98, it returns undefined
-      console.log('sentiment before redirect:', req.body.sentiment);
-      res.redirect('/posts');
+      res.redirect(`/posts/${post.id}`);
     })
     .catch((err) => {
       if(err.name === 'ValidationError') return res.badRequest(`/posts`, err.toString());
       next(err);
     });
-  }, 10000);
+    // }, 10000);
+  });
+
+
+
 }
 
 function showPost(req, res, next) {

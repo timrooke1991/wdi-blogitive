@@ -22,6 +22,8 @@ const postSchema = new mongoose.Schema({
   body: { type: String, required: true },
   sentiment: { type: Number },
   categories: { type: String },
+  entities: [],
+  concepts: [],
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   createdAt: {type: Date, default: Date.now},
   comments: [ commentSchema ]

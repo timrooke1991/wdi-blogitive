@@ -15,7 +15,12 @@ var parameters = {
     'entities': {
       'emotion': true,
       'sentiment': true,
-      'limit': 5
+      'limit': 6
+    },
+    'concepts': {
+      'emotion': true,
+      'sentiment': true,
+      'limit': 6
     }
   }
 };
