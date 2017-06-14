@@ -55,6 +55,7 @@
           <% } %>
       </div>
       <article class="blog-content">
+        <a href="https://twitter.com/intent/tweet?text=<%= post.title %> by @<%= post.createdBy.username %>" class="twitter-share-button" data-show-count="true">Tweet</a>
         <%- post.HTMLbody %>
       </article>
       </div>
