@@ -20,11 +20,11 @@ $(() => {
   console.log(labelValues);
   var ctx = document.getElementById("myChart");
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: labelValues,
       datasets: [{
-        label: '# of Votes',
+        label: 'Sentiment',
         data: chartValues,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',

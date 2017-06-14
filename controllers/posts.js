@@ -1,6 +1,4 @@
 const Post = require('../models/post');
-const time_ago_in_words = require('time_ago_in_words');
-const nlu = require('../config/watson.js');
 
 function indexPost(req, res, next) {
   const regex = new RegExp(req.query.q, 'i');
@@ -24,64 +22,14 @@ function createPost(req, res, next) {
   req.body.createdBy = req.user;
   if(req.file) req.body.image = req.file.key;
 
-  // Passing in the body of the form to be analysed by IBM Watson
-  const parameters = {
-    'text': req.body.body,
-    'features': {
-      'sentiment': {},
-      'emotion': {},
-      'relations': {
-        'limit': 5
-      },
-      'categories': {
-        'limit': 5
-      },
-      'entities': {
-        'emotion': true,
-        'sentiment': true,
-        'limit': 5
-      },
-      'concepts': {
-        'emotion': true,
-        'sentiment': true,
-        'limit': 5
-      }
-    }
-  };
-
-  // IBM Watson Function
-  nlu.analyze(parameters, function (err, response) {
-    if (err) {
-      console.log('error:', err);
-    } else {
-
-      req.body.sentiment = response.sentiment.document.score;
-
-      response.categories.forEach((category) => {
-        const convertToStringList = category.label.split('/').join(',');
-        console.log(convertToStringList);
-        req.body.categories += convertToStringList;
-      });
-
-      const dedupedStr = req.body.categories.split(',').filter(function(item, pos,self) {
-        return self.indexOf(item) === pos;
-      });
-
-      req.body.categories = dedupedStr;
-      req.body.entities = response.entities;
-      req.body.concepts = response.concepts;
-    }
-
-    Post
-    .create(req.body)
-    .then((post) => {
-      res.redirect(`/posts/${post.id}`);
-    })
-    .catch((err) => {
-      if(err.name === 'ValidationError') return res.badRequest(`/posts`, err.toString());
-      next(err);
-    });
-    // End of IBM Analysis
+  Post
+  .create(req.body)
+  .then((post) => {
+    res.redirect(`/posts/${post.id}`);
+  })
+  .catch((err) => {
+    if(err.name === 'ValidationError') return res.badRequest(`/posts`, err.toString());
+    next(err);
   });
 }
 
@@ -92,7 +40,7 @@ function showPost(req, res, next) {
     .exec()
     .then((post) => {
       if(!post) return res.notFound();
-      return res.render('posts/show', { post, time_ago_in_words });
+      return res.render('posts/show', { post });
     })
     .catch(next);
 }
@@ -145,41 +93,17 @@ function createCommentRoute(req, res, next) {
 
   req.body.createdBy = req.user;
 
-  const parameters = {
-    'text': req.body.content,
-    'features': {
-      'sentiment': {},
-      'emotion': {},
-      'entities': {
-        'emotion': true,
-        'sentiment': true,
-        'limit': 3
-      }
-    }
-  };
+  Post
+  .findById(req.params.id)
+  .exec()
+  .then((post) => {
+    if(!post) return res.notFound();
 
-  // IBM Watson Function
-  nlu.analyze(parameters, function (err, response) {
-    if (err) {
-      console.log('error:', err);
-    } else {
-
-      req.body.sentiment = response.sentiment.document.score;
-      req.body.entities = response.entities;
-
-      Post
-      .findById(req.params.id)
-      .exec()
-      .then((post) => {
-        if(!post) return res.notFound();
-
-        post.comments.push(req.body); // create an embedded record
-        return post.save();
-      })
-      .then((post) => res.redirect(`/posts/${post.id}`))
-      .catch(next);
-    }
-  });
+    post.comments.push(req.body); // create an embedded record
+    return post.save();
+  })
+  .then((post) => res.redirect(`/posts/${post.id}`))
+  .catch(next);
 }
 
 

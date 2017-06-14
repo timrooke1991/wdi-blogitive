@@ -14,7 +14,7 @@
       </header>
 
       <% for(const type in messages) { %>
-      <div class="<%= type %>">
+      <div class="notification is-<%= type %>">
         <h5><%= messages[type] %></h5>
       </div>
       <% } %>

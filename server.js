@@ -32,7 +32,6 @@ app.use(customResponses);
 
 // body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
-
 // methodOverride
 app.use(methodOverride(function (req) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {

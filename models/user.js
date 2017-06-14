@@ -7,7 +7,9 @@ const userSchema = new mongoose.Schema({
   email: { type: String },
   image: { type: String },
   password: { type: String },
-  instagramId: { type: Number }
+  instagramId: { type: Number },
+  githubId: { type: Number },
+  facebookId: { type: Number }
 });
 
 userSchema
@@ -26,9 +28,11 @@ userSchema
 
 // lifecycle hook - mongoose middleware
 userSchema.pre('validate', function checkPassword(next) {
-  if(!this.password && !this.instagramId) {
+  console.log(this);
+  if((!this.password && !this.instagramId) && (!this.password && !this.githubId) && (!this.password && !this.facebookId)) {
     this.invalidate('password', 'required');
   }
+
   if(this.password && this._passwordConfirmation !== this.password){
     this.invalidate('passwordConfirmation', 'does not match');
   }
@@ -40,6 +44,20 @@ userSchema.pre('save', function checkPassword(next) {
     this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
   }
   next();
+});
+
+//pre remove hook
+userSchema.pre('remove', function removeUserPosts(next) {
+  this.model('Post')
+    .remove({ createdBy: this.id })
+    .then(() => {
+      return this.model('Post').update(
+        { 'comments.createdBy': this.id }, // this is the query
+        { $pull: { comments: { createdBy: this.id } } } // this is the update
+      );
+    })
+    .then(next)
+    .catch(next);
 });
 
 userSchema.pre('remove', function removeImage(next) {

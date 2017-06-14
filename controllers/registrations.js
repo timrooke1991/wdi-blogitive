@@ -16,13 +16,27 @@ function createRoute(req, res, next) {
     });
 }
 
-function showRoute(req, res) {
-  Post
-    .find({ createdBy: req.user.id })
+function showRoute(req, res, next) {
+  console.log(req.user);
+  User
+    .findById(req.params.id)
+    .populate('createdBy comments.createdBy')
     .exec()
-    .then((posts) => res.render('registrations/show', { posts }));
-}
+    .then((profile) => {
+      // if(!user) return res.notFound();
+      Post
+        .find({ createdBy: req.params.id })
+        .exec()
+        .then((posts) => {
+          console.log(posts);
+          res.render('registrations/show', { profile, posts });
+        })
+        .catch((err) => {
+          next(err);
+        });
+    });
 
+}
 function editRoute(req, res) {
   return res.render('registrations/edit');
 }
@@ -32,10 +46,11 @@ function updateRoute(req, res, next) {
     req.user[field] = req.body[field];
   }
 
-  req.user.save()
-    .then(() => res.redirect('/profile'))
+  req.user
+    .save()
+    .then(() => res.redirect(`/posts`))
     .catch((err) => {
-      if(err.name === 'ValidationError') return res.badRequest('/profile/edit', err.toString());
+      // if(err.name === 'ValidationError') return res.badRequest(`/users/${req.user.id}/edit`, err.toString());
       next(err);
     });
 }

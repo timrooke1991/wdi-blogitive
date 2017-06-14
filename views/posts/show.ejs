@@ -16,7 +16,7 @@
               <div class="content">
                 <p>
                   <strong><a href="/users/<%= post.createdBy.id %>"><p>Created by: <%= post.createdBy.username %> </p></a></strong><small>
-                    <em class=""><%= time_ago_in_words(post.createdAt) %></em></small>
+                    <em class=""><%= post.timeAgo %></em></small>
                     <h1>Sentiment: <%= post.sentiment %></h1>
                   <br>
                   <h1>Categories: <% post.categories.split(',').forEach((category) => { %>
@@ -55,7 +55,7 @@
           <% } %>
       </div>
       <article class="blog-content">
-        <%= post.body %>
+        <%- post.HTMLbody %>
       </article>
       </div>
     </div>
@@ -75,7 +75,7 @@
                <div class="content">
                  <p>
                    <strong><a href="/users/<%= comment.createdBy.id %>"><%= comment.createdBy.username %></a></strong><small>
-                     <em class=""><%= time_ago_in_words(comment.createdAt) %></em></small>
+                     <em class=""><%= comment.timeAgo %></em></small>
                    <br>
                    <h1>Sentiment: <%= comment.sentiment %></h1>
                    <%= comment.content %>

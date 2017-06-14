@@ -94,7 +94,60 @@ function instagram (req, res, next) {
   .catch(next);
 }
 
+function facebook(req, res, next) {
+  return rp({
+    method: 'GET',
+    url: config.facebook.accessTokenUrl,
+    qs: {
+      client_id: config.facebook.clientId,
+      redirect_uri: config.facebook.redirectUri,
+      client_secret: config.facebook.clientSecret,
+      code: req.query.code
+    },
+    json: true
+  })
+  .then((token) => {
+    console.log(token);
+    return rp({
+      method: 'GET',
+      url: 'https://graph.facebook.com/v2.5/me?fields=id,name,email,picture.height(961)',
+      qs: {
+        access_token: token.access_token
+      },
+      json: true
+    })
+    .then((profile) => {
+      console.log('User profile', profile);
+      return User
+      .findOne( {$or: [{ email: profile.email}, {facebookId: profile.id}] })
+      .then((user) => {
+        if(!user) {
+          user = new User({
+            username: profile.name,
+            email: profile.email,
+            image: profile.picture.data.url
+          });
+        }
+        user.facebookId = profile.id;
+
+        console.log(user);
+        return user.save();
+      });
+    })
+    .then((user) => {
+      req.session.userId = user.id;
+      req.session.isAuthenticated = true;
+
+      req.flash('info', `Welcome back, ${user.username}!`);
+      res.redirect(`/posts`);
+    })
+    .catch(next);
+  });
+}
+
+
 module.exports = {
   github,
-  instagram
+  instagram,
+  facebook
 };

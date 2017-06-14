@@ -15,10 +15,13 @@ function sessionsCreate(req, res, next) {
       }
       req.user = user;
       req.session.userId = user.id;
+      req.session.image = user.image;
+      req.session.username = user.username;
       req.session.isAuthenticated = true;
 
-      console.log(req.user);
+      console.log(user);
       req.flash('success', `Welcome back, ${user.username}!`);
+
       res.redirect('/posts');
     })
     .catch(next);

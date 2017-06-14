@@ -8,7 +8,6 @@
           <img class="image is-2by1" src="<%= post.imageSRC %>" alt="<%= post.caption %>">
           <p><%= post.caption %></p>
           <a href="/posts/<%= post.id %>">Show</a>
-          <a href="users/<%= post.createdBy.id %>"><p>Created by: <%= post.createdBy.username %></p></a>
         </div>
       </div>
       <form class="alongside" method="POST" action="/posts/<%= post.id %>">

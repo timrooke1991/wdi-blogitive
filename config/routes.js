@@ -14,6 +14,9 @@ router.route('/oauth/instagram')
 router.route('/oauth/github')
   .get(oauth.github);
 
+router.route('/oauth/facebook')
+  .get(oauth.facebook);
+
 router.route('/posts')
   .get(postsController.index)
   .post(secureRoute, upload.single('image'), postsController.create);
@@ -41,7 +44,7 @@ router.route('/register')
   .post(upload.single('image'), registrationsController.create);
 
 router.route('/users/:id')
-  .get(secureRoute, registrationsController.show)
+  .get(registrationsController.show)
   .put(secureRoute, registrationsController.update)
   .delete(secureRoute, registrationsController.delete);
 
