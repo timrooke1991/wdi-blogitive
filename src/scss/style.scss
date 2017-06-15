@@ -15,7 +15,22 @@
 
 }
 
-.title {
+.image-circle {
+    border-radius: 50%;
+}
+
+.tile p, .content p {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis;
+}
+
+.content {
+  margin-left: 20px;
+}
+
+.home-title {
   position: absolute;
   text-align: left;
   font-size: 18px;
