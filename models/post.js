@@ -68,13 +68,12 @@ postSchema
     return `https://s3-eu-west-1.amazonaws.com/${process.env.AWS_BUCKET_NAME}/${this.image}`;
   });
 
-postSchema.pre('save', function removeImage(next) {
+postSchema.pre('save', function runNlpAnalysis(next) {
   naturalLanguage.analyze(this.body)
     .then((result) => {
       for(const key in result) {
         this[key] = result[key];
       }
-
       next();
     })
     .catch(next);
