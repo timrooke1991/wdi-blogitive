@@ -15,7 +15,7 @@ $(() => {
   }
 
   var chartValues = $('#myChart').data('value').split(',').map((value) => { return parseFloat(value) });
-  var labelValues = $('#myChart').data('labels').split(',').map((value) => { return value });
+  var labelValues = $('#myChart').data('labels').split(',').map((value) => { return new Date(value).toDateString() });
   console.log(chartValues);
   console.log(labelValues);
   var ctx = document.getElementById("myChart");
@@ -49,7 +49,7 @@ $(() => {
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: false
           }
         }]
       }

@@ -7,9 +7,6 @@
     <% include ./partials/_scripts.ejs %>
   </head>
   <body>
-
-    <main>
-
       <header>
         <% include ./partials/_navbar.ejs %>
       </header>
@@ -19,7 +16,7 @@
         <h5><%= messages[type] %></h5>
       </div>
       <% } %>
-
+    <main>
       <%- body %>
     </main>
   </body>

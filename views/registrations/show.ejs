@@ -1,35 +1,54 @@
-<div>
-  <h1><%= profile.username %></h1>
+<div class="columns">
+  <div class="column profile-heading">
+    <img class="image profile-image image-circle" src="<%= profile.imageSRC %>" alt="<%= profile.username %>">
+    <h1><%= profile.username %></h1>
+    <h2>Average Sentiment <%= ((posts.reduce(function(acc, val) { return acc + val.sentiment; }, 0) / posts.length) * 100).toFixed(0); %>%</h1>
+    <h3>Posts: <%= posts.length %></h3>
+    <p><%= profile.username %></p>
+  </div>
+</div>
 
-  <img class="image is-128x128 rounded" src="<%= profile.imageSRC %>" alt="<%= profile.username %>">
-
+<div class="column is-10 is-offset-1">
   <% if(posts.length) { %>
-    <canvas id="myChart" width="400" height="100" data-value="<%= posts.map(function(val) { return val.sentiment; }); %>" data-labels="<%= posts.map(function(date) { return date.createdAt; }); %>"></canvas>
+    <canvas id="myChart" width="300" height="100" data-value="<%= posts.map(function(val) { return val.sentiment; }); %>" data-labels="<%= posts.map(function(date) { return date.createdAt; }); %>"></canvas>
+
     <h1>Average Sentiment <%= ((posts.reduce(function(acc, val) { return acc + val.sentiment; }, 0) / posts.length) * 100).toFixed(0); %>%</h1>
     <% posts.forEach((post) => { %>
-
-      <p><%= post.title %></p>
-      <p><%= post.sentiment %></p>
-
-      <h1>Entities: <% post.entities.forEach((entity) => { %>
-        <% if(entity.sentiment.score > 0) { %>
-          <span class="tag is-medium" style="background-color: rgba(0,255,0, <%= Math.abs(entity.sentiment.score) %>);">
-            <span class="score"  style="color: black"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
-            <%= entity.text %>
-          </span>
-        <% } else if (entity.sentiment.score < 0){ %>
-          <span class="tag is-medium" style="background-color: rgba(255,0,0, <%= Math.abs(entity.sentiment.score) %>);">
-            <span class="score"  style="color: white"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
-            <%= entity.text %>
-          </span>
-        <% } %>
-      <% }) %></h1>
+      <article class="media">
+        <figure class="image">
+          <img  class= "" src="<%= post.imageSRC %>" alt="Image">
+        </figure>
+        <div class="media-content">
+          <div class="content">
+          <h2 class="title"><a href="/posts/<%= post.id %>"><%= post.title %></a></h2>
+          <strong><a href="/users/<%= post.createdBy.id %>"><p><%= post.createdBy.username %> </p></a></strong><small>
+            <em class=""><%= post.timeAgo %></em></small>
+          <div class="condensed">
+            <p><%- post.HTMLbody.substring(0, 550) %>...</p>
+            <p class=""><a href="/posts/<%= post.id %>">Read more</a></p>
+          </div>
+            <h4>Entities:</h4><% post.entities.forEach((entity) => { %>
+              <% if(entity.sentiment.score > 0) { %>
+                <span class="tag is-medium" style="background-color: rgba(0,255,0, <%= Math.abs(entity.sentiment.score) %>);">
+                  <span class="score"  style="color: black"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+                  <%= entity.text %>
+                </span>
+              <% } else if (entity.sentiment.score < 0){ %>
+                <span class="tag is-medium" style="background-color: rgba(255,0,0, <%= Math.abs(entity.sentiment.score) %>);">
+                  <span class="score"  style="color: white"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+                  <%= entity.text %>
+                </span>
+              <% } %>
+          <% }) %>
+          </div>
+        </div>
+      </article>
     <% }) %>
   <% } %>
+</div>
 
   <% if(locals.isAuthenticated && user.id === profile.id)  { %>
     <a class="button is-primary" href="/users/<%= user.id %>/edit">Edit profile</a>
-
     <form method="POST" action="/users/<%= user.id %>">
       <input type="hidden" name="_method" value="DELETE">
       <button class="button is-danger">Delete Account</button>

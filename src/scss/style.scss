@@ -12,7 +12,55 @@
   background-position: center;
   height: 93vh;
   position: relative;
+}
 
+a {
+  color: #9855D4;
+}
+
+.profile-heading {
+  img {
+    margin: 10px auto;
+    display: block;
+  }
+
+  text-align: center;
+}
+.profile-image {
+  height: 200px;
+}
+
+.category-selector {
+  background: white;
+}
+
+.article-content {
+  padding: 20px;
+}
+
+.article-container {
+    background: white;
+    // border: 0.5px solid rgba(255, 199, 42, 0.4);
+    box-shadow: 1px 1px 1px rgba(229 , 229, 229, 0.8);
+    cursor: pointer;
+    .image.is-2by1 {
+        padding-top: 0;
+    }
+    &:hover {
+      opacity: 0.75;
+    }
+  &:hover {
+    box-shadow: 1px 1px 1px rgba(209 , 209, 209, 1);
+  }
+}
+
+main {
+  background: rgba(229 , 229, 229, 0.4);
+  min-height: 93vh;
+}
+
+hr {
+ background-color: rgba(255, 199, 42, 0.3);
 }
 
 .image-circle {

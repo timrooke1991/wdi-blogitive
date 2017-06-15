@@ -3,21 +3,29 @@
 
   <form method="POST" action="/login">
     <div class="field">
-      <label class="label" for="email">Email</label>
-      <input class="input" type="text" name="email" id="email" required>
+      <p class="control has-icons-left">
+        <input class="input" type="email" name="email" id="email" placeholder="Email">
+        <span class="icon is-small is-left">
+          <i class="fa fa-envelope"></i>
+        </span>
+      </p>
     </div>
     <div class="field">
-      <label class="label" for="password">Password</label>
-      <input class="input" type="password" name="password" id="password" required>
+      <p class="control has-icons-left">
+        <input class="input" type="password" name="password" id="password" placeholder="Password">
+        <span class="icon is-small is-left">
+          <i class="fa fa-lock"></i>
+        </span>
+      </p>
     </div>
 
     <button class="button">Login</button>
   </form>
 
-  <a href="<%= oauth.instagram.getLoginUrl() %>" target="_blank" class="btn btn-primary">Login with Instagram</a>
+  <a href="<%= oauth.instagram.getLoginUrl() %>" target="_blank" class="button">Login with Instagram</a>
 
-  <a href="<%= oauth.github.getLoginUrl() %>" target="_blank" class="btn btn-primary">Login with Github</a>
-  <a href="<%= oauth.facebook.getLoginUrl() %>" target="_blank" class="btn btn-primary">Login with Facebook</a>
+  <a href="<%= oauth.github.getLoginUrl() %>" target="_blank" class="button">Login with Github</a>
+  <a href="<%= oauth.facebook.getLoginUrl() %>" target="_blank" class="button">Login with Facebook</a>
 
 
 </div>
