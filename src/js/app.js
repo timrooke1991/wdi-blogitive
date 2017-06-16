@@ -52,6 +52,8 @@ $(() => {
     },
     options: {
       scales: {
+        suggestedMin: -0.5,
+        suggestedMax: 0.5,
         yAxes: [{
           ticks: {
             beginAtZero: false
