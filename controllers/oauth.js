@@ -63,7 +63,7 @@ function instagram (req, res, next) {
       client_id: config.instagram.clientId,
       client_secret: config.instagram.clientSecret,
       grant_type: 'authorization_code',
-      redirect_uri: process.env.NODE_ENV === 'production' ? 'https://aqueous-lake-61312.herokuapp.com/oauth/instagram' : 'http://localhost:8000/oauth/instagram',
+      redirect_uri: config.instagram.redirectUri,
       code: req.query.code
     },
     json: true
