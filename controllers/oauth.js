@@ -100,7 +100,7 @@ function facebook(req, res, next) {
     url: config.facebook.accessTokenUrl,
     qs: {
       client_id: config.facebook.clientId,
-      redirect_uri: config.instagram.redirectUri,
+      redirect_uri: config.facebook.redirectUri,
       client_secret: config.facebook.clientSecret,
       code: req.query.code
     },
