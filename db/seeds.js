@@ -219,7 +219,7 @@ General secretary Larry Flanagan said: "While it is early in the process, this R
 
 "It is by schools, local authorities and politicians of all parties, at local and national level, working constructively together, that we can deliver enhancements to our comprehensive education system to ensure it continues to meet the needs of Scotland's young people long into the future."`,
     categories: 'politics',
-    createdBy: users[2],
+    createdBy: users[0],
     comments: [{
       content: `I respect your remarks, and in part agree with your observations, I would observe that the SNP do not have a monopoly on (not) dealing with the issues they were elected to deal with (or which they stood for election on). Perhaps Theresa May should not have been so naive or greedy as to have counted on votes for her single issue "hard Brexit" either? touche.`,
       createdBy: users[3]
@@ -427,7 +427,7 @@ Critics argue that the challenges may be enormous in a site with two billion use
 
 The company says it has begun focusing its "most cutting edge techniques" to combat the problem and clearly now believes it needs to be seen to be acting.`,
     categories: 'tech',
-    createdBy: users[10],
+    createdBy: users[0],
     comments: [{
       content: `This is a really important issue - it's important that it is now getting mainstream attention!!`,
       createdBy: users[9]
@@ -485,7 +485,7 @@ With reinforcement learning, an agent gets both positive and negative responses 
 
 Microsoft has had past problems when it comes to AI. [A chatbot dubbed Tay](http://www.bbc.co.uk/news/technology-35890188) that was released on Twitter in 2016 was hastily removed after it was taught to swear and make racist comments.`,
     categories: 'tech',
-    createdBy: users[7],
+    createdBy: users[3],
     comments: [{
       content: `Microsoft are declining, no matter how Pac-Man games they beat`,
       createdBy: users[2]
@@ -536,7 +536,7 @@ And, with the bat, the attacked the new ball, because that was the best time to 
 
 Most would probably like that final to be against India, but a clash against Bangladesh comes with a similar amount of historical meaning. Pakistan matches against either India or Bangladesh do not come too often outside of these events. It's disappointing that England will not be in that final, but the occasion will not be harmed by their absence.`,
     categories: 'sport',
-    createdBy: users[4],
+    createdBy: users[3],
     comments: [{
       content: `England always bottle it at the crucial moments! They will never win anything ... I am dreading the ashes.`,
       createdBy: users[5]
@@ -576,7 +576,7 @@ Pickford's fee smashes the previous record for a British goalkeeper, when Koeman
 
 Despite being 23, Pickford is eligible to play for the Under-21s as rules allow a select number of over-aged players in the squad.`,
     categories: 'sport',
-    createdBy: users[6],
+    createdBy: users[0],
     comments: [{
       content: `Farcical. A keeper who is special (for PNE GeoffD) does not make him any good against the best players in the English leagues. 25m for a goalkeeper is ridiculous. They are shot stoppers when their defense cock things up. Spend your money on havind a strong defense. The keeper is the last line of this and no keeper warrants that sort of price tag.`,
       createdBy: users[1]
@@ -633,7 +633,7 @@ The mobile phone industry battled long and hard with Commission over the details
 
 It would be up to a future UK government to decide whether to have the EU price restrictions on roaming or not after the UK leaves the EU. They are contained within a European regulation, not a directive, so they have not been incorporated into UK law.`,
     categories: 'tech',
-    createdBy: users[8],
+    createdBy: users[3],
     comments: [{
       content: `I remember crossing Ireland a few years after they joined. Each small farmstead was in the process of moving from a stone hovel to a new-build bungalow. All down to access to EU single market, grants and funds. I know I paid for it, but it was fantastic`,
       createdBy: users[10]
