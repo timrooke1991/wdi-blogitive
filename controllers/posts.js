@@ -1,6 +1,5 @@
 const Post = require('../models/post');
 
-
 function indexPost(req, res, next) {
   const regex = new RegExp(req.query.q, 'i');
   const query  = { $or: [{ categories: regex }, { title: regex }] };

@@ -10,14 +10,68 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 93vh;
+  height: 94vh;
   position: relative;
 }
+
+.display {
+  display: block;
+}
+
+.logo {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 20px;
+  color: #9855D4;
+  margin-left: 10px;
+  i {
+    margin-right: 5px;
+  }
+}
+
+.profile-page {
+  padding-top: 80px;
+}
+
+.posts-header {
+    text-align: center;
+    margin: 35px;
+    color: #9855D4;
+}
+.button-bar {
+  display: inline-flex;
+  margin-top: 10px;
+  text-align: center;
+}
+.delete-button {
+  margin: 0 10px
+}
+
+input.input.error {
+  border-color: red;
+}
+
+input + .error {
+  display: none !important;
+}
+
 
 a {
   color: #9855D4;
 }
 
+.general-tag {
+  border: 1px solid #9855D4;
+  color: #9855D4;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.tag-bar {
+  margin: 20px 10px;
+
+}
 .profile-heading {
   img {
     margin: 10px auto;
@@ -38,14 +92,83 @@ a {
   padding: 20px;
 }
 
+.white-boxed {
+  background: white;
+  box-shadow: 1px 1px 1px rgba(229 , 229, 229, 0.8);
+  .image.is-2by1 {
+      padding-top: 0;
+  }
+}
+.oauth-buttons {
+  margin-top: 20px;
+  a {
+    display: block;
+    width: 250px;
+    margin: 10px auto;
+    padding: 5px;
+  }
+  i {
+    margin-right: 5px;
+    margin-top: 2px;
+  }
+}
+
+
+
+.comment-sentiment {
+  float: right;
+}
+
+.sentiment-circle {
+  float: right;
+  padding: 20px 9px;
+  border-radius: 50%;
+  letter-spacing: 1.5px;
+  font-size: 22px;
+  min-width: 75px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 0 0 #333, 0 -1px 0 #333, 0 1px 0 #333, -1px 0 0 #333;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.sentiment-circle-post {
+  margin-top: -5px;
+}
+
+.timeago {
+  margin-top: 14px;
+  display: block;
+  i {
+    margin-left: 5px;
+  }
+}
+
+.sentiment {
+  margin-right: 10px;
+}
+
+.entities {
+  padding: 2.5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  color: #9855D4;
+  border-width: 1px;
+
+}
+
+.post-container {
+  @extend .white-boxed;
+  img {
+    width: 100%
+  }
+}
+
 .article-container {
-    background: white;
-    // border: 0.5px solid rgba(255, 199, 42, 0.4);
-    box-shadow: 1px 1px 1px rgba(229 , 229, 229, 0.8);
-    cursor: pointer;
-    .image.is-2by1 {
-        padding-top: 0;
-    }
+    @extend .white-boxed;
     &:hover {
       opacity: 0.75;
     }
@@ -53,14 +176,42 @@ a {
     box-shadow: 1px 1px 1px rgba(209 , 209, 209, 1);
   }
 }
+.notification:not(:last-child) {
+  margin-bottom: 0;
+}
+article .media {
+  padding: 20px 0;
+}
+
+.form-page, .register-form {
+  padding: 30px 20px;
+}
+
+.register-form {
+  margin-top: 100px;
+  position: absolute;
+}
+
+.login-btn {
+  width: 100%
+}
 
 main {
   background: rgba(229 , 229, 229, 0.4);
   min-height: 93vh;
 }
+.nav-item a.is-tab:hover, a.nav-item.is-tab:hover {
+    color: #9855D4;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
 
+.tabs a:hover {
+    border-bottom-color: #9855D4;
+    color: #9855D4;
+}
 hr {
- background-color: rgba(255, 199, 42, 0.3);
+ background-color: #9855D4;
 }
 
 .image-circle {
@@ -198,3 +349,24 @@ input[name="tagline"] {
 .tags .tag + .tags-input span + span {display:none}
 .tags-input span:focus + span {opacity:.4}
 .tags-output {display:none}
+
+@media screen and (max-width: 1260px) {
+    .tile.is-4, .tile:not(.is-child)  {
+      display: block;
+      width: 100%;
+    }
+
+
+
+    .article-container {
+      figure img {
+      display: none;
+      }
+      .column.is-4, .column.is-4-tablet {
+        width: 0;
+      }
+      .content {
+        margin-left: 0;
+      }
+    }
+}

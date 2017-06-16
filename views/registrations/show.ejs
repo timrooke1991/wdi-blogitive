@@ -1,57 +1,74 @@
-<div class="columns">
+<div class="columns profile-page">
   <div class="column profile-heading">
     <img class="image profile-image image-circle" src="<%= profile.imageSRC %>" alt="<%= profile.username %>">
     <h1><%= profile.username %></h1>
-    <h2>Average Sentiment <%= ((posts.reduce(function(acc, val) { return acc + val.sentiment; }, 0) / posts.length) * 100).toFixed(0); %>%</h1>
+    <% if (posts.length) { %>
+      <h2>Positivity: <%= ((posts.reduce(function(acc, val) { return acc + val.sentiment; }, 0) / posts.length) * 100).toFixed(0); %>%</h1>
+    <% } %>
     <h3>Posts: <%= posts.length %></h3>
-    <p><%= profile.username %></p>
+    <% if(locals.isAuthenticated && user.id === profile.id)  { %>
+      <div class="button-bar">
+        <a class="button is-primary" href="/users/<%= user.id %>/edit">Edit profile</a>
+        <form method="POST" action="/users/<%= user.id %>">
+          <input type="hidden" name="_method" value="DELETE">
+          <button class="button is-danger delete-button">Delete Account</button>
+        </form>
+      </div>
+    <% } %>
+    <h2 class="posts-header">Posts written by <%= profile.username %></h2>
   </div>
 </div>
 
 <div class="column is-10 is-offset-1">
   <% if(posts.length) { %>
     <canvas id="myChart" width="300" height="100" data-value="<%= posts.map(function(val) { return val.sentiment; }); %>" data-labels="<%= posts.map(function(date) { return date.createdAt; }); %>"></canvas>
-
-    <h1>Average Sentiment <%= ((posts.reduce(function(acc, val) { return acc + val.sentiment; }, 0) / posts.length) * 100).toFixed(0); %>%</h1>
+    <hr>
     <% posts.forEach((post) => { %>
-      <article class="media">
-        <figure class="image">
+      <article class="media article-container">
+        <figure class="image column is-4">
           <img  class= "" src="<%= post.imageSRC %>" alt="Image">
         </figure>
-        <div class="media-content">
+        <div class="media-content article-content">
           <div class="content">
           <h2 class="title"><a href="/posts/<%= post.id %>"><%= post.title %></a></h2>
-          <strong><a href="/users/<%= post.createdBy.id %>"><p><%= post.createdBy.username %> </p></a></strong><small>
-            <em class=""><%= post.timeAgo %></em></small>
+          <strong>
+            <% if(post.sentiment > 0) { %>
+              <span class="sentiment-circle" style="border: 1px solid rgb(0,155,0); background-image:  linear-gradient(rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.2)), url('http://thumbs1.ebaystatic.com/d/l225/m/mjGX7wSwMYK5C9wi8QUsPUw.jpg');"><%= (Math.abs(post.sentiment) * 100).toFixed(0) %>%</span>
+            <% } else if(post.sentiment < 0) { %>
+              <span class="sentiment-circle" style="border: 1px solid rgb(255,0,0); background-image: linear-gradient(rgba(255, 0, 0, 0.5), rgba(255, 0, 0, 0.5)), url('https://s-media-cache-ak0.pinimg.com/originals/c2/3f/b1/c23fb1080fcf419d338dda03daffe511.png');"><%= (Math.abs(post.sentiment) * 100).toFixed(0) %>%</span>
+            <% } else { %>
+              <span class="sentiment-circle" style="color: rgb(45,45,45); border: 1px solid rgb(45,45,45);"><%= (Math.abs(post.sentiment) * 100).toFixed(0) %>%</span>
+            <% } %>
+            </strong>
+            <small class="timeago">
+              <em class=""><%= post.timeAgo %></em>
+              <a href="https://twitter.com/intent/tweet?text=<%= post.title %> by @<%= post.createdBy.username %>" class=" " data-show-count="true"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </small>
+
           <div class="condensed">
             <p><%- post.HTMLbody.substring(0, 550) %>...</p>
             <p class=""><a href="/posts/<%= post.id %>">Read more</a></p>
-          </div>
-            <h4>Entities:</h4><% post.entities.forEach((entity) => { %>
+            <div class="tag-bar"><% post.entities.forEach((entity) => { %>
               <% if(entity.sentiment.score > 0) { %>
-                <span class="tag is-medium" style="background-color: rgba(0,255,0, <%= Math.abs(entity.sentiment.score) %>);">
-                  <span class="score"  style="color: black"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+                <span class="tag is-medium" style="color: rgb(0,155,0); border: 1px solid rgb(0,155,0);">
+                  <span class="sentiment"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
                   <%= entity.text %>
                 </span>
-              <% } else if (entity.sentiment.score < 0){ %>
-                <span class="tag is-medium" style="background-color: rgba(255,0,0, <%= Math.abs(entity.sentiment.score) %>);">
-                  <span class="score"  style="color: white"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+              <% } else if(entity.sentiment.score < 0) { %>
+                <span class="tag is-medium" style="color: rgb(255,0,0); border: 1px solid rgb(255,0,0);">
+                  <span class="sentiment"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
                   <%= entity.text %>
                 </span>
               <% } %>
-          <% }) %>
+            <% }) %></div>
+          </div>
           </div>
         </div>
       </article>
     <% }) %>
   <% } %>
-</div>
 
-  <% if(locals.isAuthenticated && user.id === profile.id)  { %>
-    <a class="button is-primary" href="/users/<%= user.id %>/edit">Edit profile</a>
-    <form method="POST" action="/users/<%= user.id %>">
-      <input type="hidden" name="_method" value="DELETE">
-      <button class="button is-danger">Delete Account</button>
-    </form>
-  <% } %>
+
+
+</div>
 </div>

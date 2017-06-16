@@ -1,10 +1,10 @@
-<div class="column is-8 is-offset-2">
-  <h1 class="">New Post</h1>
+<div class="article-container column is-8 is-offset-2 form-page">
   <form method="POST" action="/posts" enctype="multipart/form-data" id="blog-submit-form">
+
     <div class="field">
       <label class="label" for="title">Title</label>
       <p class="control">
-        <input class="input blog-post-input" type="text" name="title" id="title" placeholder="Title of my post">
+        <input class="input blog-post-input" type="text" name="title" id="title" placeholder="Title of my post" required>
       </p>
     </div>
     <div class="field">
@@ -22,16 +22,15 @@
     <div class="field">
       <label class="label" for="image">Image</label>
       <label class="button is-primary" for="image" id="file">Choose file</label>
-      <input type="file" name="image" id="image" hidden>
+      <input type="file" name="image" id="image" hidden required>
       <output id="list"></output>
     </div>
     <div class="field">
       <label class="label blog-post-input" for="body">Blog Content</label>
       <p class="control">
-        <textarea class="textarea blog-post-input" name="body" id="body"></textarea>
+        <textarea class="textarea blog-post-input" name="body" id="body" required></textarea>
       </p>
     </div>
     <button class="button" id="submit-post">Post</button>
   </form>
-  <hr/>
 </div>

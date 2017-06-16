@@ -1,6 +1,6 @@
 <div class="column">
   <div class="column is-6 is-offset-3">
-    <div class="column">
+    <div class="column post-container article-content">
       <div class="">
         <h3 class="blog-title"><%= post.title %></h3>
         <img src="<%= post.imageSRC %>" alt="<%= post.caption %>">
@@ -8,39 +8,54 @@
         <div class="block">
 
           <div class="media-left">
-            <figure class="image is-64x64">
-              <img src="<%= post.createdBy.imageSRC %>" alt="Image">
-            </figure>
-
+            <% if(post.sentiment > 0) { %>
+              <span class="sentiment-circle sentiment-circle-post"
+              style="border: 1px solid rgb(0,155,0); background-image: linear-gradient(rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.2)), url('http://thumbs1.ebaystatic.com/d/l225/m/mjGX7wSwMYK5C9wi8QUsPUw.jpg');"><%= (Math.abs(post.sentiment) * 100).toFixed(0) %>%</span>
+            <% } else if(post.sentiment < 0) { %>
+              <span class="sentiment-circle sentiment-circle-post" style="border: 1px solid rgb(255,0,0); background-image: linear-gradient(rgba(255, 0, 0, 0.5), rgba(255, 0, 0, 0.5)), url('https://s-media-cache-ak0.pinimg.com/originals/c2/3f/b1/c23fb1080fcf419d338dda03daffe511.png');"><%= (Math.abs(post.sentiment) * 100).toFixed(0) %>%</span>
+            <% } else { %>
+              <span class="sentiment-circle sentiment-circle-post" style="color: rgb(45,45,45); border: 1px solid rgb(45,45,45);"><%= (Math.abs(post.sentiment) * 100).toFixed(0) %>%</span>
+            <% } %>
             <div class="media-content">
               <div class="content">
                 <p>
-                  <strong><a href="/users/<%= post.createdBy.id %>"><p>Created by: <%= post.createdBy.username %> </p></a></strong><small>
-                    <em class=""><%= post.timeAgo %></em></small>
-                    <h1>Sentiment: <%= post.sentiment %></h1>
+                  <strong>
+                    <a href="/users/<%= post.createdBy.id %>">
+                      <p>This post was written by <%= post.createdBy.username %> </p>
+                    </a>
+
+                  </strong>
                   <br>
-                  <h1>Categories: <% post.categories.split(',').forEach((category) => { %>
-                    <a href="/posts?q=<%= category %>" class="tag is-medium is-sucess"><%= category %></a>
-                  <% }) %></h1>
-                  <h1>Entities: <% post.entities.forEach((entity) => { %>
-                    <% if(entity.sentiment.score > 0) { %>
-                      <span class="tag is-medium" style="background-color: rgba(0,255,0, <%= Math.abs(entity.sentiment.score) %>);">
-                        <span class="score"  style="color: black"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
-                        <%= entity.text %>
-                      </span>
-                    <% } else if(entity.sentiment.score < 0) { %>
-                      <span class="tag is-medium" style="background-color: rgba(255,0,0, <%= Math.abs(entity.sentiment.score) %>);">
-                        <span class="score"  style="color: white"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
-                        <%= entity.text %>
-                      </span>
-                    <% } %>
-                  <% }) %></h1>
+                  <small class="timeago">
+                    <em class=""><%= post.timeAgo %></em>
+                    <a href="https://twitter.com/intent/tweet?text=<%= post.title %> by @<%= post.createdBy.username %>" class=" " data-show-count="true"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                  </small>
 
-                  <h1>Concepts:  <% post.concepts.forEach((concept) => { %>
-                    <a href="<%= concept.dbpedia_resource %>" class="tag is-medium" target="_blank"><%= concept.text %></a>
-                  <% }) %>
-
+                  <br>
+                  <h3>Concepts referenced in this article</h3>
+                  <div class="tag-bar">
+                    <% post.concepts.forEach((concept) => { %>
+                      <a href="<%= concept.dbpedia_resource %>" class="tag is-medium general-tag" target="_blank"><%= concept.text %></a>
+                    <% }) %>
+                  </div>
+                  <h3>Topics mentioned positively or negatively</h3>
+                  <div class="tag-bar">
+                    <% post.entities.forEach((entity) => { %>
+                      <% if(entity.sentiment.score > 0) { %>
+                        <span class="tag is-medium general-tag" style="color: rgb(0,155,0); border: 1px solid rgb(0,155,0);">
+                          <span class="sentiment"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+                          <%= entity.text %>
+                        </span>
+                      <% } else if(entity.sentiment.score < 0) { %>
+                        <span class="tag is-medium general-tag" style="color: rgb(255,0,0); border: 1px solid rgb(255,0,0);">
+                          <span class="sentiment"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+                          <%= entity.text %>
+                        </span>
+                      <% } %>
+                    <% }) %>
+                </div>
                 </p>
+                <hr>
               </div>
             </div>
           </div>
@@ -49,16 +64,20 @@
               <a class="button is-primary" href="/posts/<%= post.id %>/edit">Edit</a>
               <form class="alongside" method="POST" action="/posts/<%= post.id %>">
                 <input type="hidden" name="_method" value="DELETE">
-                <button class="button is-danger">Delete</button>
+                <button class="button is-danger delete-button">Delete</button>
               </form>
             </div>
           <% } %>
       </div>
       <article class="blog-content">
-        <a href="https://twitter.com/intent/tweet?text=<%= post.title %> by @<%= post.createdBy.username %>" class="twitter-share-button" data-show-count="true">Tweet</a>
         <%- post.HTMLbody %>
       </article>
       </div>
+      <hr />
+      <h3>Read more articles on similar topics</h3>
+      <div class="tag-bar"><% post.categories.split(',').forEach((category) => { %>
+        <a href="/posts?q=<%= category %>" class="tag is-medium general-tag"><%= category %></a>
+      <% }) %></div>
     </div>
 
     <section class="column">
@@ -77,35 +96,33 @@
                  <p>
                    <strong><a href="/users/<%= comment.createdBy.id %>"><%= comment.createdBy.username %></a></strong><small>
                      <em class=""><%= comment.timeAgo %></em></small>
+                     <% if(comment.sentiment > 0) { %>
+                       <span class="sentiment-circle"
+                       style="border: 1px solid rgb(0,155,0); background-image: linear-gradient(rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.2)), url('http://thumbs1.ebaystatic.com/d/l225/m/mjGX7wSwMYK5C9wi8QUsPUw.jpg');"><%= (Math.abs(post.sentiment) * 100).toFixed(0) %>%</span>
+                     <% } else if(comment.sentiment < 0) { %>
+                       <span class="sentiment-circle" style="border: 1px solid rgb(255,0,0); background-image: linear-gradient(rgba(255, 0, 0, 0.5), rgba(255, 0, 0, 0.5)), url('https://s-media-cache-ak0.pinimg.com/originals/c2/3f/b1/c23fb1080fcf419d338dda03daffe511.png');"><%= (Math.abs(comment.sentiment) * 100).toFixed(0) %>%</span>
+                     <% } else { %>
+                       <span class="sentiment-circle" style="border: 1px solid rgb(45,45,45);"><%= (Math.abs(comment.sentiment) * 100).toFixed(0) %>%</span>
+                     <% } %>
                    <br>
-                   <h1>Sentiment: <%= comment.sentiment %></h1>
                    <%= comment.content %>
-                   <h1>Entities: <% comment.entities.forEach((entity) => { %>
+                   <div class="entities"><% comment.entities.forEach((entity) => { %>
                      <% if(entity.sentiment.score > 0) { %>
-                       <span class="tag is-medium" style="background-color: rgba(0,255,0, <%= Math.abs(entity.sentiment.score) %>);">
-                         <span class="score"  style="color: black"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+                       <span class="tag is-medium general-tag" style="color: rgb(0,155,0); border: 1px solid rgb(0,155,0);">
+                         <span class="sentiment"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
                          <%= entity.text %>
                        </span>
-                     <% } else { %>
-                       <span class="tag is-medium" style="background-color: rgba(255,0,0, <%= Math.abs(entity.sentiment.score) %>);">
-                         <span class="score"  style="color: white"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
+                     <% } else if (entity.sentiment.score < 0) { %>
+                       <span class="tag is-medium general-tag" style="color: rgb(255,0,0);border: 1px solid rgb(255,0,0);">
+                         <span class="sentiment"><%= (Math.abs(entity.sentiment.score) * 100).toFixed(0) %>%</span>
                          <%= entity.text %>
                        </span>
                      <% } %>
-                   <% }) %></h1>
+                   <% }) %></div>
                  </p>
                </div>
                <nav class="level is-mobile">
                  <div class="level-left">
-                   <a class="level-item">
-                     <span class="icon is-small"><i class="fa fa-reply"></i></span>
-                   </a>
-                   <a class="level-item">
-                     <span class="icon is-small"><i class="fa fa-retweet"></i></span>
-                   </a>
-                   <a class="level-item">
-                     <span class="icon is-small"><i class="fa fa-heart"></i></span>
-                   </a>
                    <% if(locals.isAuthenticated && comment.belongsTo(user)) { %>
                      <form method="POST" action="/posts/<%= post.id %>/comments/<%= comment.id %>">
                        <input type="hidden" name="_method" value="DELETE">

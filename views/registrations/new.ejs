@@ -1,10 +1,10 @@
-<div class="column is-8 is-offset-2">
+<div class="article-container column is-8 is-offset-2 register-form">
   <h1 class="title">Register</h1>
 
   <form method="POST" action="/register" enctype="multipart/form-data">
     <div class="field">
       <p class="control has-icons-left">
-        <input class="input" type="text" name="username" id="username" placeholder="Username">
+        <input class="input" type="text" name="username" id="username" placeholder="Username" required>
         <span class="icon is-small is-left">
           <i class="fa fa-user"></i>
         </span>
@@ -12,7 +12,7 @@
     </div>
     <div class="field">
       <p class="control has-icons-left">
-        <input class="input" type="email" name="email" id="email" placeholder="Email">
+        <input class="input" type="email" name="email" id="email" placeholder="Email" required>
         <span class="icon is-small is-left">
           <i class="fa fa-envelope"></i>
         </span>
@@ -25,7 +25,7 @@
     </div>
     <div class="field">
       <p class="control has-icons-left">
-        <input class="input" type="password" name="password" id="password" placeholder="Password">
+        <input class="input" type="password" name="password" id="password" placeholder="Password" required>
         <span class="icon is-small is-left">
           <i class="fa fa-lock"></i>
         </span>
@@ -33,7 +33,7 @@
     </div>
     <div class="field">
       <p class="control has-icons-left">
-        <input class="input" type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Password">
+        <input class="input" type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Password Confirmation" required>
         <span class="icon is-small is-left">
           <i class="fa fa-lock"></i>
         </span>

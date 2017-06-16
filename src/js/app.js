@@ -1,11 +1,16 @@
 $(() => {
   console.log('JS Loaded');
-
+  $('form').validate();
   // Home Page - Typing animation
   if ($('.txt-rotate')) typeAnimation();
 
   // Image preview function
   // if ($('form'))
+  $('.nav-toggle').on('click', () => {
+    console.log('clicked!');
+    $('.nav-right').toggleClass('display');
+    $('.nav-item').toggleClass('is-hidden-mobile');
+  });
 
   // Only run categories logic on relevent pages
   if ($('input[name="categories"]').length > 0) {
@@ -18,7 +23,7 @@ $(() => {
   var labelValues = $('#myChart').data('labels').split(',').map((value) => { return new Date(value).toDateString() });
   console.log(chartValues);
   console.log(labelValues);
-  var ctx = document.getElementById("myChart");
+  var ctx = document.getElementById('myChart');
   var myChart = new Chart(ctx, {
     type: 'line',
     data: {
