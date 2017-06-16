@@ -226,9 +226,6 @@ General secretary Larry Flanagan said: "While it is early in the process, this R
     },{
       content: `SNP freeze C Tax restricting councils ability to assist schools, then raise C Tax bands and give the £120M raised to Heads and repeat the £120M figure over and over to take credit! Our schools "share" of £120m is £2K, a joke when teacher numbers are way down and class sizes are high or growing. SNP now have the cheek to try to abrogate responsibility for closing attainment gap to Heads!`,
       createdBy: users[4]
-    },{
-      content: `Schools doing badly under government control - SNP bad. Schools doing badly when self-governed - SNP bad. Roman Catholic schools in Scotland allowed to exist - SNP bad. Considering abolishing RC schools - SNP bad`,
-      createdBy: users[8]
     }]
   },{
     title: 'Jeremy Corbyn demands to know contents of Tory-DUP deal',
@@ -316,12 +313,6 @@ Asked about Sir John's comments, Mrs May said she was "absolutely steadfast" in 
     comments: [{
       content: 'Downing Street has so far rebuffed calls for major changes to its Brexit blueprint and ruled out the prospect of cross-party talks ahead of the start of official negotiations with the EU next week.',
       createdBy: users[5]
-    },{
-      content: `What's cynical is Labour bought the student vote on promises they knew they'd never have to keep. They knew they were never going to win the general election and therefore knew they could promise what the young and gullible wanted to hear.`,
-      createdBy: users[3]
-    },{
-      content: `I don't doubt for one minute that Corbyn's "friends" within the IRA have instructed him to find out as much as he can about any deal the Tory's plan so that they can do their best to sabotage it. Of course, being a sympathiser, he do as instructed. Its nothing to do with the Labour party, they are not in power, they are of no consequence in these negotiations.`,
-      createdBy: users[9]
     },{
       content: `Clearly Corbin has never changed his spots. An out and out trotskyite... thinks it alright to meddle in anything because they know best...... or in other words Stalin Russia or worse still the basket case that is Venezuela. When will the follows actually open their eyes and see through all his unattainable promises and interference to create his non existent world. But gullible people exist.`,
       createdBy: users[6]
@@ -429,9 +420,6 @@ The company says it has begun focusing its "most cutting edge techniques" to com
     categories: 'tech',
     createdBy: users[0],
     comments: [{
-      content: `This is a really important issue - it's important that it is now getting mainstream attention!!`,
-      createdBy: users[9]
-    },{
       content: `Facebook are taking over the world - we're DOOMED!!!`,
       createdBy: users[7]
     }]
@@ -538,9 +526,6 @@ Most would probably like that final to be against India, but a clash against Ban
     categories: 'sport',
     createdBy: users[3],
     comments: [{
-      content: `England always bottle it at the crucial moments! They will never win anything ... I am dreading the ashes.`,
-      createdBy: users[5]
-    },{
       content: `Think that was a hammering? If they'd tried to play India's spinners, we would have been seriously embarrassed. India will win it.`,
       createdBy: users[7]
     }]
@@ -581,14 +566,8 @@ Despite being 23, Pickford is eligible to play for the Under-21s as rules allow 
       content: `Farcical. A keeper who is special (for PNE GeoffD) does not make him any good against the best players in the English leagues. 25m for a goalkeeper is ridiculous. They are shot stoppers when their defense cock things up. Spend your money on havind a strong defense. The keeper is the last line of this and no keeper warrants that sort of price tag.`,
       createdBy: users[1]
     },{
-      content: `I would rather have Heaton tbh - half the price, incredible form, has leadership qualities (captain for Burnley) and he still has a few years in him as most goalkeepers play untill they are very old (Buffon, Cassillas, Cech, etc) Hes not on the same level as these players but I would honestly prefer him to Pickford as good as Pickford looks. Best of luck to him and Everton anyway.`,
-      createdBy: users[3]
-    },{
       content: `By the time this transfer window closes this deal will not even be in the top ten price range,as an Everton fan I have been crying out for years for investment in players infrastructure etc,but we are in danger of losing our identity by pushing out local talent like Barkley in our pursuit to become a "big" club.`,
       createdBy: users[6]
-    },{
-      content: `I remember Alan Sugar at Tottenham declining the chance to bid for Shearer on the grounds that (as he claimed) even winning the CL wouldn't justify an outlay of £15m, and of course, that "the bubble will burst". All these years later we're still waiting for the pop and Spurs are still waiting for the title that Shearer helped Blackburn gain all those years ago!`,
-      createdBy: users[8]
     },{
       content: `that's another young English player added to the Everton squad along with half the England u20's, Everton doing more for English football than the rest of the prem, who just over spend on some unknown young french or spanish player that never plays and gets loaned out, well done Everton, keep it going`,
       createdBy: users[7]
@@ -635,20 +614,11 @@ It would be up to a future UK government to decide whether to have the EU price 
     categories: 'tech',
     createdBy: users[3],
     comments: [{
-      content: `I remember crossing Ireland a few years after they joined. Each small farmstead was in the process of moving from a stone hovel to a new-build bungalow. All down to access to EU single market, grants and funds. I know I paid for it, but it was fantastic`,
-      createdBy: users[10]
-    },{
-      content: `A bit late answering I know. I am outing myself now as an expat in the EU (of 33 years). You say Romania is years behind in its development. The idea of their membership was to help them get up to date. As they get more affluent, they will contribute more. There is a certain solidarity involved. For me, Schengen and the Euro are the most practical advantages of the EU.`,
-      createdBy: users[4]
-    },{
       content: `Are we? The Tories disagree with themselves, Farage thought we should be in Norway - pay in, no say - Gove thought we should be out, out and export to India. FTSE250 now falling as consumer confidence finally dries up. Now should businesses invest or not? Minor bump or train wreck?`,
       createdBy: users[2]
     },{
       content: `Since U.K. likely to stay in the single market, this benefit could carry on after 2019`,
       createdBy: users[9]
-    },{
-      content: `Good to see the mantra Vodafone don't pay tax , yes they do but lets not let the facts get in the way of not understanding business and taxes. Read this article ... you may understand it, as both HMRC and Vodafone have articulated this ad nauseum.`,
-      createdBy: users[10]
     }]
   }]);
 })
