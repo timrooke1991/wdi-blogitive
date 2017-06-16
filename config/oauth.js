@@ -26,7 +26,7 @@ module.exports = {
     accessTokenUrl: 'https://graph.facebook.com/v2.9/oauth/access_token',
     clientId: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    redirectUri: 'http://localhost:8000/oauth/facebook',
+    redirectUri: process.env.NODE_ENV === 'production' ? 'https://aqueous-lake-61312.herokuapp.com/oauth/facebook' : 'http://localhost:8000/oauth/facebook',
     responseCode: 'code',
     getLoginUrl() {
       return `${this.loginUrl}?client_id=${this.clientId}&redirect_uri=${this.redirectUri}&response_type=${this.responseCode}`;

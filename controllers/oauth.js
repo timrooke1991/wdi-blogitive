@@ -100,7 +100,7 @@ function facebook(req, res, next) {
     url: config.facebook.accessTokenUrl,
     qs: {
       client_id: config.facebook.clientId,
-      redirect_uri: process.env.NODE_ENV === 'production' ? 'https://aqueous-lake-61312.herokuapp.com/oauth/facebook' : 'http://localhost:8000/oauth/facebook',
+      redirect_uri: config.instagram.redirectUri,
       client_secret: config.facebook.clientSecret,
       code: req.query.code
     },
