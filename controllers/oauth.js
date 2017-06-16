@@ -51,7 +51,7 @@ function github(req, res, next) {
   .catch(next);
 }
 
-console.log(config);
+
 
 function instagram (req, res, next) {
 
@@ -63,7 +63,7 @@ function instagram (req, res, next) {
       client_id: config.instagram.clientId,
       client_secret: config.instagram.clientSecret,
       grant_type: 'authorization_code',
-      redirect_uri: config.instagram.redirectUri,
+      redirectUri: process.env.NODE_ENV === 'production' ? 'https://aqueous-lake-61312.herokuapp.com/oauth/instagram' : 'http://localhost:8000/oauth/instagram',
       code: req.query.code
     },
     json: true
@@ -100,7 +100,7 @@ function facebook(req, res, next) {
     url: config.facebook.accessTokenUrl,
     qs: {
       client_id: config.facebook.clientId,
-      redirect_uri: config.facebook.redirectUri,
+      redirectUri: process.env.NODE_ENV === 'production' ? 'https://aqueous-lake-61312.herokuapp.com/oauth/facebook' : 'http://localhost:8000/oauth/facebook',
       client_secret: config.facebook.clientSecret,
       code: req.query.code
     },
