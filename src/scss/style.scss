@@ -5,6 +5,7 @@
 @import "bulma/grid/_all";
 @import "bulma/layout/_all";
 
+
 .index-background {
   background-image: url('/assets/images/background.jpg');
   background-repeat: no-repeat;
@@ -185,11 +186,11 @@ article .media {
 
 .form-page, .register-form {
   padding: 30px 20px;
+  @extend .white-boxed;
 }
 
 .register-form {
-  margin-top: 100px;
-  position: absolute;
+  margin-top: 130px;
 }
 
 .login-btn {
@@ -350,13 +351,32 @@ input[name="tagline"] {
 .tags-input span:focus + span {opacity:.4}
 .tags-output {display:none}
 
-@media screen and (max-width: 1260px) {
+@media screen and (max-width: 1060px) {
     .tile.is-4, .tile:not(.is-child)  {
       display: block;
       width: 100%;
     }
+    a.nav-item:not(.button) {
+      margin: 0 auto;
+    }
 
+    .nav-menu.nav-right {
+      margin: 0 auto;
+      display: flex;
+      .nav-item {
+        margin: 0 auto;
+      }
+    }
 
+    div.category-selector.tabs {
+      position: fixed;
+      height: 50px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      margin-bottom: 0px;
+      z-index: 99;
+    }
 
     .article-container {
       figure img {

@@ -8,8 +8,7 @@ $(() => {
   // if ($('form'))
   $('.nav-toggle').on('click', () => {
     console.log('clicked!');
-    $('.nav-right').toggleClass('display');
-    $('.nav-item').toggleClass('is-hidden-mobile');
+
   });
 
   // Only run categories logic on relevent pages
@@ -19,8 +18,13 @@ $(() => {
     const tags = new TIB(document.querySelector('input[name="categories"]'));
   }
 
-  var chartValues = $('#myChart').data('value').split(',').map((value) => { return parseFloat(value) });
-  var labelValues = $('#myChart').data('labels').split(',').map((value) => { return new Date(value).toDateString() });
+  var chartValues = $('#myChart').data('value').split(',').map((value) => {
+    return parseFloat(value)
+  });
+
+  var labelValues = $('#myChart').data('labels').split(',').map((value) => { 
+    return new Date(value).toDateString()
+  });
   console.log(chartValues);
   console.log(labelValues);
   var ctx = document.getElementById('myChart');

@@ -5,31 +5,26 @@
         <i class="fa fa-pencil" aria-hidden="true"></i>Blogitive
       </a>
     </div>
-    <span class="nav-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </span>
       <div class="nav-right nav-menu">
-        <a class="nav-item is-tab is-hidden-mobile" href="/posts">Posts</a>
+        <a class="nav-item is-tab" href="/posts">Posts</a>
         <% if(locals.isAuthenticated) { %>
-          <a class="nav-item is-tab is-hidden-mobile" href="/posts/new">
+          <a class="nav-item is-tab" href="/posts/new">
             Add Post
           </a>
-          <a class="nav-item is-tab is-hidden-mobile" href="/users/<%= user.id %>">
+          <a class="nav-item is-tab" href="/users/<%= user.id %>">
             <figure class="image is-16x16" style="margin-right: 8px;">
               <img class="image-circle" src="<%= user.imageSRC %>">
             </figure>
             <%= user.username %>
           </a>
-          <a class="nav-item is-tab is-hidden-mobile" href="/logout">
+          <a class="nav-item is-tab" href="/logout">
             Logout
           </a>
         <% } else { %>
-          <a class="nav-item is-tab is-hidden-mobile" href="/register">
+          <a class="nav-item is-tab" href="/register">
             Register
           </a>
-          <a class="nav-item is-tab is-hidden-mobile" href="/login">
+          <a class="nav-item is-tab" href="/login">
             Login
           </a>
         <% } %>

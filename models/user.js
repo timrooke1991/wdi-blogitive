@@ -48,10 +48,10 @@ userSchema.pre('save', function checkPassword(next) {
 
 //pre remove hook
 userSchema.pre('remove', function removeUserPosts(next) {
-  this.model('Post')
+  this.model('Campaign')
     .remove({ createdBy: this.id })
     .then(() => {
-      return this.model('Post').update(
+      return this.model('Campaign').update(
         { 'comments.createdBy': this.id }, // this is the query
         { $pull: { comments: { createdBy: this.id } } } // this is the update
       );
